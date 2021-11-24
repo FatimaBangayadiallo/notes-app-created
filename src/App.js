@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import React from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Container, Col, Row } from "react-bootstrap";
+import Add from "./components/Add";
+import Notes from "./components/notes";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  render() {
+    return (
+      <>
+        {/* the nav bar componet */}
+        {/* all----------------------------------------------------- about the App-------------------- */}
+        <Container>
+          <Row>
+            <Col md="4">
+              <Add />
+            </Col>
+            <Col md="6">
+              <Notes />
+            </Col>
+          </Row>
+        </Container>
+
+        {/* --------------------------------------------end of the app------------------------------- */}
+      </>
+    );
+  }
 }
 
 export default App;
