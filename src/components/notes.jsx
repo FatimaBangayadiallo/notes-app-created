@@ -3,6 +3,7 @@ import Note from "./note";
 import { Container, Row } from "react-bootstrap";
 import OnlyNote from "./note";
 import "./notes.css";
+import { connect } from "react-redux";
 const Notes = (props) => {
   console.log(props.data);
   return (
@@ -19,8 +20,15 @@ const Notes = (props) => {
               </tr>
             </thead>
             <tbody>
-              {props.data.map((item, index) => {
-                return <OnlyNote itemInfo={item} key={index} />;
+              {props.notesBook.map((item) => {
+                return (
+                  <OnlyNote
+                    itemInfo={item}
+                    key={item.id}
+                    EditRow={props.EditRow}
+                    DeleteRow={props.DeleteRow}
+                  />
+                );
 
                 // return (
                 //   // <tr key={index}>
@@ -37,4 +45,9 @@ const Notes = (props) => {
     </>
   );
 };
-export default Notes;
+const mapStateToProps = (state) => {
+  return {
+    notesBook: state.notesBook,
+  };
+};
+export default connect(mapStateToProps)(Notes);

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
 import Edit from "./edit";
 import Moment from "react-moment";
+import { DeleteRow } from "../actions/actions";
+import { connect } from "react-redux";
 
 const OnlyNote = (props) => {
   // the state------------------
@@ -9,6 +11,11 @@ const OnlyNote = (props) => {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  // -----------------------------------------------------the handle close methode------------------
+  const handleDelete = (e) => {
+    e.preventDefault();
+    props.DeleteRow(props.itemInfo.id);
+  };
   return (
     <>
       {/* the Modal */}
@@ -17,7 +24,11 @@ const OnlyNote = (props) => {
           <Modal.Title>Editing A Row</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Edit rowInfo={props.itemInfo} />
+          <Edit
+            rowInfo={props.itemInfo}
+            EditRow={props.EditRow}
+            CloseModal={handleClose}
+          />
         </Modal.Body>
       </Modal>
 
@@ -31,10 +42,13 @@ const OnlyNote = (props) => {
         <td>{props.itemInfo.note}</td>
         <td>
           <button onClick={handleShow}>edit</button>
-          <button>delete</button>
+          <button onClick={handleDelete}>delete</button>
         </td>
       </tr>
     </>
   );
 };
-export default OnlyNote;
+const mapDispatchToProps = {
+  DeleteRow,
+};
+export default connect(null, mapDispatchToProps)(OnlyNote);

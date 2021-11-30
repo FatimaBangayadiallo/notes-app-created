@@ -1,5 +1,10 @@
 import React from "react";
 import { Form, Button } from "react-bootstrap";
+import moment from "moment";
+import { connect } from "react-redux";
+import { EditRow } from "../actions/actions";
+
+const date = moment(new Date()).format("DD/MM/YYYY");
 class Edit extends React.Component {
   constructor(props) {
     super(props);
@@ -22,12 +27,13 @@ class Edit extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.AddFormData(this.state);
+    this.props.EditRow(this.state.id, this.state);
     this.setState({
       title: "",
       date: "",
       note: "",
     });
+    this.props.CloseModal();
     console.log("je suis soumit");
   };
   render() {
@@ -82,4 +88,7 @@ class Edit extends React.Component {
     );
   }
 }
-export default Edit;
+const mapDispatchToProps = {
+  EditRow,
+};
+export default connect(null, mapDispatchToProps)(Edit);

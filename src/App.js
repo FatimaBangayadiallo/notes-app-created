@@ -39,10 +39,28 @@ class App extends React.Component {
     console.log(this.state.notesBook.title);
   }
   // -------------------------------------------add form data---------------------
-  AddFormData = (noteObjec) => {
-    noteObjec.id = Math.random().toString();
+  // AddFormData = (noteObjec) => {
+  //   noteObjec.id = Math.random().toString();
+  //   this.setState({
+  //     notesBook: [...this.state.notesBook, noteObjec],
+  //   });
+  // };
+  // -----------------------------------------edit a Row data------------------------
+  // EditRow = (id, updatedRow) => {
+  //   this.setState({
+  //     notesBook: this.state.notesBook.map((noteObjec) =>
+  //       noteObjec.id === id ? updatedRow : noteObjec
+  //     ),
+  //   });
+  // };
+
+  // --------------------------delete Row action---------------------
+  DeleteRow = (id) => {
+    let undeletedRow = this.state.notesBook.filter(
+      (noteObjec) => noteObjec.id !== id
+    );
     this.setState({
-      notesBook: [...this.state.notesBook, noteObjec],
+      notesBook: undeletedRow,
     });
   };
 
@@ -53,12 +71,20 @@ class App extends React.Component {
         <NavBar />
         {/* all----------------------------------------------------- about the App-------------------- */}
         <Container style={{ marginTop: "3rem" }} fluid>
-          <Row>
-            <Col md="4">
+          <Row style={{ backgroundColor: "" }}>
+            <Col md="6">
               <Add AddFormData={this.AddFormData} />
             </Col>
-            <Col md="6">
-              <Notes data={this.state.notesBook} />
+          </Row>
+
+          <Row>
+            <Col>
+              <h1 style={{ marginLeft: "20rem" }}>See All Notes</h1>
+              <Notes
+                data={this.state.notesBook}
+                EditRow={this.EditRow}
+                DeleteRow={this.DeleteRow}
+              />
             </Col>
           </Row>
         </Container>

@@ -1,5 +1,7 @@
 import React from "react";
 import { Form, Button } from "react-bootstrap";
+import { connect } from "react-redux";
+import { AddFormData } from "../actions/actions";
 class Add extends React.Component {
   constructor(props) {
     super(props);
@@ -32,7 +34,7 @@ class Add extends React.Component {
   render() {
     return (
       <>
-        <h1>add in a note</h1>
+        <h1>Add In A Note</h1>
         <Form onSubmit={this.handleSubmit}>
           {/* title */}
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -77,4 +79,7 @@ class Add extends React.Component {
     );
   }
 }
-export default Add;
+const mapDispatchToProps = {
+  AddFormData,
+};
+export default connect(null, mapDispatchToProps)(Add);
